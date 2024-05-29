@@ -25,8 +25,8 @@ namespace WinFormsApp1
         {
             //default values
             numFiles = 1000;
-            fileSize = 1024; 
-            
+            fileSize = 1024;
+
             if (int.TryParse(textBoxNumFiles.Text, out numFiles) && int.TryParse(textBoxFileSize.Text, out fileSize))
             {
                 fileSize = fileSize * 1024;
@@ -66,7 +66,7 @@ namespace WinFormsApp1
                     response.Close();
                     return;
                 }
-               
+
                 using (var ms = new MemoryStream())
                 {
                     await request.InputStream.CopyToAsync(ms);
@@ -104,8 +104,8 @@ namespace WinFormsApp1
                 response.ContentLength64 = fileBytes.Length;
                 await response.OutputStream.WriteAsync(fileBytes, 0, fileBytes.Length);
                 response.Close();
-              
-        
+
+
 
                 File.Delete(filePath); // Clean up
 
@@ -120,13 +120,13 @@ namespace WinFormsApp1
 
         private void client1btn_Click(object sender, EventArgs e)
         {
-            string client1path = @"C:\Users\Zhiyuan.Y\testing\HTTPS.test\ConsoleApp1\bin\Debug\net7.0\Client1.exe";
+            string client1path = $@"{AppDomain.CurrentDomain.BaseDirectory}..\..\..\..\ConsoleApp1\bin\Debug\net7.0\Client1.exe";
             Task.Run(() => System.Diagnostics.Process.Start(client1path, $"{numFiles} {fileSize}")); // Start the client1 app
         }
 
         private void client2btn_Click(object sender, EventArgs e)
         {
-            string client2path = @"C:\Users\Zhiyuan.Y\testing\HTTPS.test\Client2\bin\Debug\net7.0\Client2.exe";
+            string client2path = $@"{AppDomain.CurrentDomain.BaseDirectory}..\..\..\..\Client2\bin\Debug\net7.0\Client2.exe";
             Task.Run(() => System.Diagnostics.Process.Start(client2path, $"{numFiles}")); // Start the client2 app
         }
     }
