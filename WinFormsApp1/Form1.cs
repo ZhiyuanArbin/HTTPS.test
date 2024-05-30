@@ -14,30 +14,27 @@ namespace WinFormsApp1
         private Task serverTask;
         private HttpListener listener;
         static Dictionary<string, List<string>> fileStore = new Dictionary<string, List<string>>();
-        private int numFiles;
-        private int fileSize;
+        private int numFiles = 1000;
+        private int fileSize = 1024;
+        private string serverUrl = "http://localhost:5000/";
         public Form1()
         {
             InitializeComponent();
+            textBoxFileSize.Text = "1";
+            textBoxNumFiles.Text = "1000";
+            textBoxServerUrl.Text = "http://localhost:5000/"; 
+
         }
 
         private void serverbtn_Click(object sender, EventArgs e)
         {
             //default values
-            numFiles = 1000;
-            fileSize = 1024;
-
-            if (int.TryParse(textBoxNumFiles.Text, out numFiles) && int.TryParse(textBoxFileSize.Text, out fileSize))
-            {
-                fileSize = fileSize * 1024;
-                MessageBox.Show($"Number of files: {numFiles}\nFile size: {fileSize} kB");
-            }
             serverTask = Task.Run(() => StartServer());
             serverbtn.Enabled = false;
         }
         private void StartServer()
         {
-            string prefix = "http://localhost:5000/";
+            string prefix = serverUrl;
             listener = new HttpListener();
             listener.Prefixes.Add(prefix);
             listener.Start();
@@ -121,13 +118,28 @@ namespace WinFormsApp1
         private void client1btn_Click(object sender, EventArgs e)
         {
             string client1path = $@"{AppDomain.CurrentDomain.BaseDirectory}..\..\..\..\ConsoleApp1\bin\Debug\net7.0\Client1.exe";
-            Task.Run(() => System.Diagnostics.Process.Start(client1path, $"{numFiles} {fileSize}")); // Start the client1 app
+            Task.Run(() => System.Diagnostics.Process.Start(client1path, $"{numFiles} {fileSize} {serverUrl}")); // Start the client1 app
         }
 
         private void client2btn_Click(object sender, EventArgs e)
         {
             string client2path = $@"{AppDomain.CurrentDomain.BaseDirectory}..\..\..\..\Client2\bin\Debug\net7.0\Client2.exe";
-            Task.Run(() => System.Diagnostics.Process.Start(client2path, $"{numFiles}")); // Start the client2 app
+            Task.Run(() => System.Diagnostics.Process.Start(client2path, $"{numFiles} {serverUrl}")); // Start the client2 app
+        }
+
+        private void textBoxFileSize_TextChanged(object sender, EventArgs e)
+        {
+            fileSize = int.Parse(textBoxFileSize.Text) * 1024;
+        }
+
+        private void textBoxNumFiles_TextChanged(object sender, EventArgs e)
+        {
+            numFiles = int.Parse(textBoxNumFiles.Text); // Number of files to download
+        }
+
+        private void textBoxServerUrl_TextChanged(object sender, EventArgs e)
+        {
+            serverUrl = textBoxServerUrl.Text;
         }
     }
 }

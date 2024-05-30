@@ -8,12 +8,14 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        if (args.Length < 1)
+        if (args.Length < 2)
         {
-            Console.WriteLine("Usage: Client2 <numfiles>");
+            Console.WriteLine("Usage: Client2 <numfiles> <serverUrl>");
+            Console.WriteLine("Press [Enter] to exit the program.");
+            Console.ReadLine();
             return;
         }
-        string serverUrl = "http://localhost:5000/download?recipient=client2";
+        string serverUrl = $"{args[1]}download?recipient=client2";
         string savePath =Path.GetTempPath(); // Update the save path
 
         int numFiles = int.Parse(args[0]); // Number of files to download

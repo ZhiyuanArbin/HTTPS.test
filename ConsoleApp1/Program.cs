@@ -16,7 +16,7 @@ namespace Client1 // Client1
 
             string uploadPath = Path.GetTempPath();
 
-            string uploadUrl = $"http://localhost:5000/upload?recipient=client2";
+            string uploadUrl = $"{args[2]}upload?recipient=client2";
             int numFiles = int.Parse(args[0]);
             int fileSize = int.Parse(args[1]);
             

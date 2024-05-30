@@ -37,11 +37,13 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
+            textBoxServerUrl = new TextBox();
+            label5 = new Label();
             SuspendLayout();
             // 
             // serverbtn
             // 
-            serverbtn.Location = new Point(305, 185);
+            serverbtn.Location = new Point(305, 355);
             serverbtn.Name = "serverbtn";
             serverbtn.Size = new Size(117, 23);
             serverbtn.TabIndex = 0;
@@ -51,7 +53,7 @@
             // 
             // client1btn
             // 
-            client1btn.Location = new Point(116, 303);
+            client1btn.Location = new Point(134, 400);
             client1btn.Name = "client1btn";
             client1btn.Size = new Size(117, 23);
             client1btn.TabIndex = 1;
@@ -61,7 +63,7 @@
             // 
             // client2btn
             // 
-            client2btn.Location = new Point(501, 303);
+            client2btn.Location = new Point(488, 400);
             client2btn.Name = "client2btn";
             client2btn.Size = new Size(117, 23);
             client2btn.TabIndex = 2;
@@ -80,10 +82,11 @@
             // 
             // textBoxNumFiles
             // 
-            textBoxNumFiles.Location = new Point(206, 143);
+            textBoxNumFiles.Location = new Point(451, 100);
             textBoxNumFiles.Name = "textBoxNumFiles";
             textBoxNumFiles.Size = new Size(100, 23);
             textBoxNumFiles.TabIndex = 4;
+            textBoxNumFiles.TextChanged += textBoxNumFiles_TextChanged;
             // 
             // textBoxFileSize
             // 
@@ -91,11 +94,12 @@
             textBoxFileSize.Name = "textBoxFileSize";
             textBoxFileSize.Size = new Size(100, 23);
             textBoxFileSize.TabIndex = 5;
+            textBoxFileSize.TextChanged += textBoxFileSize_TextChanged;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(131, 146);
+            label2.Location = new Point(382, 100);
             label2.Name = "label2";
             label2.Size = new Size(63, 15);
             label2.TabIndex = 6;
@@ -119,11 +123,30 @@
             label4.TabIndex = 8;
             label4.Text = "kB";
             // 
+            // textBoxServerUrl
+            // 
+            textBoxServerUrl.Location = new Point(451, 198);
+            textBoxServerUrl.Name = "textBoxServerUrl";
+            textBoxServerUrl.Size = new Size(348, 23);
+            textBoxServerUrl.TabIndex = 9;
+            textBoxServerUrl.TextChanged += textBoxServerUrl_TextChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(384, 201);
+            label5.Name = "label5";
+            label5.Size = new Size(59, 15);
+            label5.TabIndex = 10;
+            label5.Text = "serverURL";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(825, 472);
+            Controls.Add(label5);
+            Controls.Add(textBoxServerUrl);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -150,5 +173,7 @@
         private Label label2;
         private Label label3;
         private Label label4;
+        private TextBox textBoxServerUrl;
+        private Label label5;
     }
 }
