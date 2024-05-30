@@ -63,7 +63,7 @@
             client1btn.Name = "client1btn";
             client1btn.Size = new Size(117, 23);
             client1btn.TabIndex = 1;
-            client1btn.Text = "client1 upload";
+            client1btn.Text = "upload";
             client1btn.UseVisualStyleBackColor = true;
             client1btn.Click += client1btn_Click;
             // 
@@ -73,7 +73,7 @@
             client2btn.Name = "client2btn";
             client2btn.Size = new Size(117, 23);
             client2btn.TabIndex = 2;
-            client2btn.Text = "client2 download";
+            client2btn.Text = "download";
             client2btn.UseVisualStyleBackColor = true;
             client2btn.Click += client2btn_Click;
             // 
