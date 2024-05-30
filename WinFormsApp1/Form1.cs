@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.ComponentModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace WinFormsApp1
 {
 
@@ -14,6 +15,7 @@ namespace WinFormsApp1
         private Task serverTask;
         private HttpListener listener;
         static Dictionary<string, List<string>> fileStore = new Dictionary<string, List<string>>();
+        static Dictionary<string, string> timestampStore = new Dictionary<string, string>(); 
         private int numFiles = 1000;
         private int fileSize = 1024;
         private string serverUrl = "http://localhost:5000/";
@@ -82,6 +84,44 @@ namespace WinFormsApp1
                 await response.OutputStream.WriteAsync(System.Text.Encoding.UTF8.GetBytes("File uploaded"));
                 response.Close();
             }
+            // handle timestamp request from clients 
+            else if (request.HttpMethod == "POST" && request.Url.AbsolutePath == "/timestamp")
+            {
+                string recipient = request.QueryString["recipient"];
+                using (StreamReader reader = new StreamReader(request.InputStream, request.ContentEncoding))
+                {
+                    string timestamp = await reader.ReadToEndAsync();
+                    timestampStore[recipient] = timestamp;
+                    
+                    if (recipient == "client1")
+                    {
+                        Invoke((Action)(() =>
+                        {
+                            textBoxTimeStamp1.Text = timestamp;
+                        }));
+                    }
+                    else 
+                    {
+                        Invoke((Action)(() =>
+                        {
+                            textBoxTimeStamp2.Text = timestamp;
+                        }));
+                        if (timestampStore.Count == 2)
+                        {
+                            TimeSpan ts = DateTime.Parse(timestamp) - DateTime.Parse(timestampStore["client1"]);
+                            Invoke((Action)(() =>
+                            {
+                                textBoxTotalTime.Text = ts.TotalSeconds.ToString();
+                            }));
+                        }
+                       
+                    }
+                }
+                response.StatusCode = 200; // OK
+                await response.OutputStream.WriteAsync(System.Text.Encoding.UTF8.GetBytes("Timestamp uploaded"));
+                response.Close();
+
+            }
             else if (request.HttpMethod == "GET" && request.Url.AbsolutePath == "/download")
             {
                 string recipient = request.QueryString["recipient"];
@@ -141,5 +181,7 @@ namespace WinFormsApp1
         {
             serverUrl = textBoxServerUrl.Text;
         }
+
+       
     }
 }

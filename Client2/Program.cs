@@ -58,7 +58,7 @@ class Program
             }
         }
         stopwatch.Stop();
-        string endTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        string endTime = DateTime.UtcNow.ToString("HH:mm:ss.fff");
         
 
         long totalBytes = numFiles * fileSize;
@@ -75,8 +75,20 @@ class Program
         Console.WriteLine($"Time taken for download: {stopwatch.Elapsed.TotalSeconds} seconds");
 
 
-        calculatetotaltime(endTime); 
+        //calculatetotaltime(endTime);
 
+        await Task.Delay(1000); // Delay for 1 second
+        serverUrl = $"{args[1]}timestamp?recipient=client2";
+        using (HttpClient client = new HttpClient())
+        {
+            using (var content = new StringContent(endTime))
+            {
+                var response = await client.PostAsync(serverUrl, content);
+                string result = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(result);
+            }
+
+        }
         Console.WriteLine("Press [Enter] to exit the program.");
         Console.ReadLine();
     }

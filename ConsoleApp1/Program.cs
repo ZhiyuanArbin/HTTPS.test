@@ -21,6 +21,7 @@ namespace Client1 // Client1
             int fileSize = int.Parse(args[1]);
             
             byte[][] fileContent = new byte[numFiles][];
+            string startTime; 
 
             using (HttpClient client = new HttpClient())
             {
@@ -35,7 +36,7 @@ namespace Client1 // Client1
                 }
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
-                string startTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"); 
+                startTime = DateTime.UtcNow.ToString("HH:mm:ss.fff"); 
                 for (int i = 0; i < numFiles; i++) 
                 { 
                     using (var content = new MultipartFormDataContent())
@@ -62,8 +63,23 @@ namespace Client1 // Client1
                 Console.WriteLine(); 
                 Console.WriteLine($"Client1 started at {startTime}");
                 Console.WriteLine($"Time taken for upload: {stopwatch.Elapsed.TotalSeconds} seconds");
-                File.AppendAllText("log.txt", $"Client1 started at {startTime}\n");
+         
             }
+
+            // send timestamp to server 
+            await Task.Delay(1000); // Delay for 1 second
+            string serverUrl = $"{args[2]}timestamp?recipient=client1"; 
+            using (HttpClient client = new HttpClient())
+            {
+                using (var content = new StringContent(startTime))
+                {
+                    var response = await client.PostAsync(serverUrl, content);
+                    string result = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(result);
+                }
+               
+            }
+            
             Console.WriteLine("Press [Enter] to exit the program.");
             Console.ReadLine();
         }

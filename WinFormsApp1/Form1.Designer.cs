@@ -39,6 +39,12 @@
             label4 = new Label();
             textBoxServerUrl = new TextBox();
             label5 = new Label();
+            textBoxTimeStamp1 = new TextBox();
+            textBoxTimeStamp2 = new TextBox();
+            label6 = new Label();
+            label7 = new Label();
+            textBoxTotalTime = new TextBox();
+            label8 = new Label();
             SuspendLayout();
             // 
             // serverbtn
@@ -140,11 +146,65 @@
             label5.TabIndex = 10;
             label5.Text = "serverURL";
             // 
+            // textBoxTimeStamp1
+            // 
+            textBoxTimeStamp1.Location = new Point(134, 143);
+            textBoxTimeStamp1.Name = "textBoxTimeStamp1";
+            textBoxTimeStamp1.Size = new Size(145, 23);
+            textBoxTimeStamp1.TabIndex = 11;
+            // 
+            // textBoxTimeStamp2
+            // 
+            textBoxTimeStamp2.Location = new Point(134, 198);
+            textBoxTimeStamp2.Name = "textBoxTimeStamp2";
+            textBoxTimeStamp2.Size = new Size(145, 23);
+            textBoxTimeStamp2.TabIndex = 12;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(21, 146);
+            label6.Name = "label6";
+            label6.Size = new Size(107, 15);
+            label6.TabIndex = 13;
+            label6.Text = "Upload Timestamp";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(5, 201);
+            label7.Name = "label7";
+            label7.Size = new Size(123, 15);
+            label7.TabIndex = 14;
+            label7.Text = "Download Timestamp";
+            // 
+            // textBoxTotalTime
+            // 
+            textBoxTotalTime.Location = new Point(258, 271);
+            textBoxTotalTime.Name = "textBoxTotalTime";
+            textBoxTotalTime.Size = new Size(145, 23);
+            textBoxTotalTime.TabIndex = 15;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(80, 279);
+            label8.Name = "label8";
+            label8.Size = new Size(141, 15);
+            label8.TabIndex = 16;
+            label8.Text = "Total File transfer Time (s)";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(825, 472);
+            Controls.Add(label8);
+            Controls.Add(textBoxTotalTime);
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(textBoxTimeStamp2);
+            Controls.Add(textBoxTimeStamp1);
             Controls.Add(label5);
             Controls.Add(textBoxServerUrl);
             Controls.Add(label4);
@@ -175,5 +235,11 @@
         private Label label4;
         private TextBox textBoxServerUrl;
         private Label label5;
+        private TextBox textBoxTimeStamp1;
+        private TextBox textBoxTimeStamp2;
+        private Label label6;
+        private Label label7;
+        private TextBox textBoxTotalTime;
+        private Label label8;
     }
 }
